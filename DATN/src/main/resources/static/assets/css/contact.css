@@ -5,6 +5,9 @@
 
 }
 
+.foot-logo:hover{
+    color: cyan;
+}
 .get-in-touch .title {
     text-align: center;
     text-transform: uppercase;

@@ -187,9 +187,17 @@ public class IndexController {
         List<CustomerFeedback> feedback = feedbackService.findByProductProductId(productId);
 
         if (principal != null) {
+            if (principal != null) {
             String username = principal.getName();
             int userId = getUserIDByUsername(username);
-            model.addAttribute("userId", userId);
+            
+            model.addAttribute("username", username);
+             
+           
+            int cartItemCount = cartService.getCount(userId);
+            model.addAttribute("cartItemCount", cartItemCount);
+
+        }
         }
 
         model.addAttribute("products", product);
@@ -234,10 +242,21 @@ public class IndexController {
     }
 
     @GetMapping("/product/category/{categoryId}")
-    public String productCategory(@PathVariable("categoryId") Integer categoryId, Model model) {
+    public String productCategory(@PathVariable("categoryId") Integer categoryId, Model model, Principal principal) {
         List<Category> allcat = categoryService.findAll();
         Category cat = categoryService.findbyId(categoryId);
         List<Product> products = productService.findByCategoryCategoryId(categoryId);
+         if (principal != null) {
+            String username = principal.getName();
+            int userId = getUserIDByUsername(username);
+            
+            model.addAttribute("username", username);
+             
+           
+            int cartItemCount = cartService.getCount(userId);
+            model.addAttribute("cartItemCount", cartItemCount);
+
+        }
         model.addAttribute("categories", cat);
         model.addAttribute("products", products);
         model.addAttribute("allcategory", allcat);
